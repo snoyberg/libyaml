@@ -656,3 +656,9 @@ yaml_queue_extend(void **start, void **head, void **tail, void **end);
      (node).data.mapping.pairs.end = (node_pairs_end),                          \
      (node).data.mapping.pairs.top = (node_pairs_start),                        \
      (node).data.mapping.style = (node_style))
+
+/* For Haskell yaml package, since we do not use the configure script */
+#define YAML_VERSION_STRING "0.1.7"
+#define YAML_VERSION_MAJOR 0
+#define YAML_VERSION_MINOR 1
+#define YAML_VERSION_PATCH 7

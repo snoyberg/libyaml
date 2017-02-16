@@ -63,7 +63,14 @@ yaml_strdup(const yaml_char_t *str)
     if (!str)
         return NULL;
 
+/*
+ * Haskell yaml package: added to support _WIN64
+ */
+#if _WIN64
+    return (yaml_char_t *)_strdup((char *)str);
+#else
     return (yaml_char_t *)strdup((char *)str);
+#endif
 }
 
 /*
@@ -824,6 +831,8 @@ yaml_scalar_event_initialize(yaml_event_t *event,
     yaml_char_t *value_copy = NULL;
 
     assert(event);      /* Non-NULL event object is expected. */
+    /* following line added for Haskell yaml library */
+    if (!value && !length) value = (unsigned char*)"";
     assert(value);      /* Non-NULL anchor is expected. */
 
     if (anchor) {
