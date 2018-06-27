@@ -2,8 +2,8 @@
 
 # Define the package version numbers and the bug reporting link.
 m4_define([YAML_MAJOR], 0)
-m4_define([YAML_MINOR], 1)
-m4_define([YAML_PATCH], 7)
+m4_define([YAML_MINOR], 2)
+m4_define([YAML_PATCH], 1)
 m4_define([YAML_BUGS], [https://github.com/yaml/libyaml/issues/new])
 
 # Define the libtool version numbers; check the Autobook, Section 11.4.
@@ -67,7 +67,7 @@ AC_C_CONST
 AC_TYPE_SIZE_T
 
 # Define Makefiles.
-AC_CONFIG_FILES([yaml-0.1.pc include/Makefile src/Makefile Makefile tests/Makefile win32/Makefile])
+AC_CONFIG_FILES([yaml-0.1.pc include/Makefile src/Makefile Makefile tests/Makefile])
 
 # Generate the "configure" script.
 AC_OUTPUT

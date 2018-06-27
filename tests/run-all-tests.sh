@@ -3,12 +3,14 @@
 set -e
 
 main() {
+  # Autoconf based in-source build and tests
   clean
 
   ./bootstrap
   ./configure
   make test-all
 
+  # CMake based in-source build and tests
   clean
 
   cmake .
@@ -20,7 +22,8 @@ main() {
 
 clean() {
   git clean -d -x -f
-  rm -fr tests/run-test-suite/data
+  rm -fr tests/run-test-suite
+  git worktree prune
 }
 
 main "$@"

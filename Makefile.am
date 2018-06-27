@@ -1,7 +1,7 @@
 ## Run `./bootstrap` to generate the "Makefile.in" files in this directory and
 ## the "$SUBDIRS" subdirectories.
 
-SUBDIRS = include src . tests win32
+SUBDIRS = include src . tests
 
 EXTRA_DIST = README LICENSE CMakeLists.txt doc/doxygen.cfg
 
@@ -9,11 +9,12 @@ pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = yaml-0.1.pc
 
 maintainer-clean-local:
-	-rm -f aclocal.m4 config.h.in configure config/*
+	rm -f aclocal.m4 config.h.in configure config/*
 	-find ${builddir} -name Makefile.in -exec rm -f '{}' ';'
 
 distclean-local:
-	-make -C tests/run-test-suite clean
+	rm -fr tests/run-test-suite
+	-git worktree prune
 
 .PHONY: bootstrap
 bootstrap: maintainer-clean
@@ -24,7 +25,12 @@ bootstrap: maintainer-clean
 test: all
 	make -C tests check-TESTS
 
-test-suite:
-	(export LIBYAML_DIR=$$PWD; make -C tests/run-test-suite test)
+test-suite: tests/run-test-suite
+	make -C $< test
 
 test-all: test test-suite
+
+tests/run-test-suite:
+	-git branch --track run-test-suite origin/run-test-suite
+	-git worktree prune
+	git worktree add $@ run-test-suite
